@@ -10,7 +10,7 @@
 	"authors": [
 		{
 			"name": "Max Lapko",
-			"email": "maxlapko@gmail.com    ",
+			"email": "maxlapko@gmail.com",
 			"homepage": "https://github.com/maxlapko",
 			"role": "Team Lead Developer"
 		}
@@ -28,5 +28,5 @@
 			"maxlapko\\components\\": ""
 		}
 	},
-	"minimum-stability": "stable"
+	"minimum-stability": "dev"
 }
