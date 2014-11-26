@@ -1,0 +1,32 @@
+{
+	"name": "maxlapko/yii2-image-processor",
+	"description": "yii2 image processor",
+	"version": "0.0.1",
+	"type": "yii2-extension",
+	"keywords": ["yii", "yii2", "image", "component", "behavior"],
+	"homepage": "https://github.com/maxlapko/yii2-image-processor",
+	"time": "2014-04-29",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Max Lapko",
+			"email": "maxlapko@gmail.com    ",
+			"homepage": "https://github.com/maxlapko",
+			"role": "Team Lead Developer"
+		}
+	],
+	"support": {
+		"issues": "https://github.com/maxlapko/yii2-image-processor/issues",
+		"source": "https://github.com/maxlapko/yii2-image-processor"
+	},
+	"require": {
+		"php": ">=5.4.0",
+		"yiisoft/yii2": "*"
+	},
+	"autoload": {
+		"psr-4": {
+			"maxlapko\\components\\": ""
+		}
+	},
+	"minimum-stability": "stable"
+}
