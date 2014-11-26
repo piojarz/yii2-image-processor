@@ -2,7 +2,6 @@ Image processor
 
 ```php
 
-
 'components' => array(
     'image' => [
         'class'        => '\maxlapko\components\ImageProcessor',
@@ -27,6 +26,7 @@ Image processor
     ]
 ),
 
+```
 
 ImageBehavior
 =============
