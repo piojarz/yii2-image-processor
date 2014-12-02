@@ -1,8 +1,8 @@
 <?php
 namespace maxlapko\components\handler\drivers;
 
-use Exception,
-    yii\base\Component;
+use Exception;
+use yii\base\Component;
 
 /**
  * @author mlapko <maxlapko@gmail.com> 
@@ -315,6 +315,5 @@ abstract class AbstractDriver extends Component implements IDriver
     {
         $this->_freeImage();
     }
-    
 
 }

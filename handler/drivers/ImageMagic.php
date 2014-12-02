@@ -1,10 +1,10 @@
 <?php
 namespace maxlapko\components\handler\drivers;
 
-use Exception,
-    Imagick,
-    ImagickDraw,
-    ImagickPixel;
+use Exception;
+use Imagick;
+use ImagickDraw;
+use ImagickPixel;
 
 /**
  * @author mlapko <maxlapko@gmail.com>
@@ -65,9 +65,8 @@ class ImageMagic extends AbstractDriver
             $this->_image->compositeImage($watermark['image'], Imagick::COMPOSITE_OVER, $posX, $posY);
 
             return $this;
-        } else {
-            return false;
         }
+        return false;
     }
 
     public function flip($mode)
@@ -307,8 +306,7 @@ class ImageMagic extends AbstractDriver
 
         //Image
         $this->_destroyImage($this->_image);
-        $this->_image = $image['image'];
-            
+        $this->_image = $image['image'];            
     }
 
 }

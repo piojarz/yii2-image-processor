@@ -104,5 +104,6 @@ class ImageFileValidator
         $params['{attribute}'] = $object->getAttributeLabel($attribute);
 		$object->addError($attribute, strtr($message, $params));
     }
+    
 }
 

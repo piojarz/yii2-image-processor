@@ -1,4 +1,7 @@
 <?php
+namespace maxlapko\components;
+
+use Yii;
 /**
  * Controller for not force process
  * 
@@ -6,7 +9,6 @@
  * 
  * //config main.php
  * //....
- *   'controllerMap' => array('image_processor' => 'ext.image_processor.MImageProcessorController'),
  * 
  * .htaccess ->
  *   # if a directory or a file exists, use it directly
@@ -21,7 +23,7 @@
  *   } 
  *   
  */
-class ImageProcessorController extends \yii\base\Controller
+class ImageProcessorController extends \yii\web\Controller
 {
     /**
      * Resize Image

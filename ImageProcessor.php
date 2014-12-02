@@ -1,12 +1,12 @@
 <?php
 namespace maxlapko\components;
 
-use Exception,
-    maxlapko\components\handler\drivers\AbstractDriver,
-    ReflectionMethod,
-    Yii,
-    yii\base\Component,
-    yii\web\UploadedFile;
+use Exception;
+use maxlapko\components\handler\drivers\AbstractDriver;
+use ReflectionMethod;
+use Yii;
+use yii\base\Component;
+use yii\web\UploadedFile;
 
 /**
  * Description of ImageProcessor
@@ -346,4 +346,5 @@ class ImageProcessor extends Component
         }
         return $this->presets[$preset];        
     }
+    
 }

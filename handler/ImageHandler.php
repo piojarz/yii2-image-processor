@@ -20,7 +20,7 @@ class ImageHandler extends \yii\base\Component
     
     /**
      *
-     * @var MDriverAbstract 
+     * @var AbstractDriver 
      */
     protected $_imageHandler;
     

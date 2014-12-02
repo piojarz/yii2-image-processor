@@ -1,8 +1,8 @@
 <?php
 namespace maxlapko\components;
 
-use Yii,
-    yii\base\Behavior;
+use Yii;
+use yii\base\Behavior;
 
 /**
  * Behavior for managing image
@@ -148,7 +148,5 @@ class ImageBehavior extends Behavior
             }            
         }
     }
-    
-    
     
 }

@@ -1,10 +1,10 @@
 <?php
 namespace maxlapko\components;
 
-use Exception,
-    Yii,
-    yii\validators\FileValidator,
-    yii\web\UploadedFile;
+use Exception;
+use Yii;
+use yii\validators\FileValidator;
+use yii\web\UploadedFile;
 /**
  * Description of ImageValidator
  *

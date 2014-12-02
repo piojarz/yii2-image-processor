@@ -1,4 +1,20 @@
-Image processor
+Image processor 2 
+=================
+
+(Yii2 lib for image manipulation and caching them)
+
+## Install
+
+### Composer install
+
+add package to require section
+    
+    require: "maxlapko/yii2-image-processor": "dev-master"
+
+run commanf `composer update`
+
+
+## Configuration
 
 ```php
 
@@ -28,8 +44,7 @@ Image processor
 
 ```
 
-ImageBehavior
-=============
+## ImageBehavior
 
 Behavior for managing image
 
@@ -67,8 +82,7 @@ public function actionCreate()
 
 ```
 
-ImageValidator
-==============
+## ImageValidator
 
 ```php
 
