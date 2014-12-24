@@ -44,7 +44,11 @@ class ImageBehavior extends Behavior
      */
     public function getImagePath($attribute, $preset)
     {
-        return Yii::$app->get($this->imageProcessor)->getImagePath($this->owner->$attribute, $preset, $this->owner->formName());
+        return Yii::$app->get($this->imageProcessor)->getImagePath(
+            $this->owner->$attribute, 
+            $preset, 
+            strtolower($this->owner->formName())
+        );
     }
     
     /**
@@ -56,7 +60,12 @@ class ImageBehavior extends Behavior
      */
     public function getImageUrl($attribute, $preset, $forceProcess = null)
     {
-        return Yii::$app->get($this->imageProcessor)->getImageUrl($this->owner->$attribute, $preset, $this->owner->formName(), $forceProcess);
+        return Yii::$app->get($this->imageProcessor)->getImageUrl(
+            $this->owner->$attribute, 
+            $preset, 
+            strtolower($this->owner->formName()), 
+            $forceProcess
+        );
     }   
     
     /**
@@ -72,7 +81,10 @@ class ImageBehavior extends Behavior
             if ($deleteOld) {
                 $this->deleteImage($attribute);
             }
-            $image = Yii::$app->get($this->imageProcessor)->upload($image, $this->owner->formName());
+            $image = Yii::$app->get($this->imageProcessor)->upload(
+                $image, 
+                strtolower($this->owner->formName())
+            );
             $this->owner->$attribute = $image['filename'];
             return true;
         } else {
