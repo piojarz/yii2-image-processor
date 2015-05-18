@@ -200,7 +200,7 @@ class ImageProcessor extends Component
     public function process($fullFilename, $preset, $params = [])
     {
         if (!file_exists($fullFilename)) {
-            throw new Exception('File "' . $fullFilename . '" was not found.');            
+            return false;
         }
         $actions = $this->_getPreset($preset);
         $image = $this->getImageHandler()->load($fullFilename);
