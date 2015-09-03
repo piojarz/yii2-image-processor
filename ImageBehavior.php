@@ -3,6 +3,8 @@ namespace maxlapko\components;
 
 use Yii;
 use yii\base\Behavior;
+use yii\db\ActiveRecord;
+use yii\web\UploadedFile;
 
 /**
  * Behavior for managing image
@@ -33,8 +35,50 @@ class ImageBehavior extends Behavior
     /**
      * @var string
      */
-    public $imageProcessor = 'image';   
-        
+    public $imageProcessor = 'image';
+    
+    public $attributes;
+    
+    public $patterns;
+
+
+    public function events()
+    {
+        return [
+            ActiveRecord::EVENT_AFTER_VALIDATE => 'afterValidate',
+            ActiveRecord::EVENT_AFTER_DELETE => 'afterDelete',
+        ];
+    }
+    
+    public function attach($owner)
+    {
+        parent::attach($owner);
+        if ($this->attributes && !is_array($this->attributes)) {
+            $this->attributes = array($this->attributes);
+        }
+    }
+
+
+    public function afterValidate($event)
+    {
+        if ($this->attributes) {
+            foreach ($this->attributes as $attr) {
+                $this->uploadImage(UploadedFile::getInstance($this->owner, $attr), $attr);
+            }
+        }
+        return $event;
+    }
+    
+    public function afterDelete($event)
+    {
+        if ($this->attributes) {
+            foreach ($this->attributes as $attr) {
+                $this->deleteImage($attr, $this->patterns);
+            }
+        }
+        return $event;
+    }
+
     /**
      * Get Path for image
      * @param string $attribute
