@@ -157,6 +157,10 @@ class ImageProcessor extends Component
         if (!$filename) {
             return '';
         }
+        $ext = pathinfo($filename, PATHINFO_EXTENSION);
+        if (strtolower($ext) === 'svg') {
+            $preset = 'orig';
+        }
         if ($forceProcess === null) {
             $forceProcess = $this->forceProcess;
         }
