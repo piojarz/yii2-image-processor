@@ -14,7 +14,7 @@ class ImageMagic extends AbstractDriver
 {
     const IMG_GIF  = 'GIF';
     const IMG_JPEG = 'JPEG';
-    const IMG_PNG  = 'PNG';    
+    const IMG_PNG  = 'PNG';
 
     public function resize($width, $height, $proportional = true)
     {
@@ -35,9 +35,9 @@ class ImageMagic extends AbstractDriver
             $newWidth = $width;
             $newHeight = $height;
         }
-        
+
         $this->_image->scaleImage($newWidth, $newHeight);
-        
+
         $this->_width = $newWidth;
         $this->_height = $newHeight;
 
@@ -56,11 +56,11 @@ class ImageMagic extends AbstractDriver
             if ($this->_width < $watermark['width'] || $this->_height < $watermark['height']) {
                 $watermark['image']->scaleImage($this->_width, $this->_height, true);
             }
-            
+
             list($posX, $posY) = $this->_getCornerPosition(
-                $corner, $watermark['image']->getImageWidth(), 
+                $corner, $watermark['image']->getImageWidth(),
                 $watermark['image']->getImageHeight(), $offsetX, $offsetY
-            );            
+            );
 
             $this->_image->compositeImage($watermark['image'], Imagick::COMPOSITE_OVER, $posX, $posY);
 
@@ -75,14 +75,14 @@ class ImageMagic extends AbstractDriver
 
         switch ($mode) {
             case self::FLIP_HORIZONTAL:
-                $this->_image->flopImage();                
+                $this->_image->flopImage();
                 break;
             case self::FLIP_VERTICAL:
                 $this->_image->flipImage();
                 break;
             case self::FLIP_BOTH:
                 $this->_image->flopImage();
-                $this->_image->flipImage();                
+                $this->_image->flipImage();
                 break;
             default:
                 throw new Exception('Invalid $mode value');
@@ -97,7 +97,7 @@ class ImageMagic extends AbstractDriver
 
         $degrees = (int) $degrees;
         $this->_image->rotateImage(new ImagickPixel($backgroundColor), $degrees);
-        
+
         $geometry = $this->_image->getImageGeometry();
         $this->_width = $geometry['width'];
         $this->_height = $geometry['height'];;
@@ -143,7 +143,7 @@ class ImageMagic extends AbstractDriver
         $draw->setFont($fontFile);
         /* Set the font size */
         $draw->setFontSize($size);
-        
+
         $im = new Imagick();
         /* Get the text properties */
         $properties = $im->queryFontMetrics($draw, $text);
@@ -151,7 +151,7 @@ class ImageMagic extends AbstractDriver
         /* Region size for the watermark. Add some extra space on the sides  */
         $textWidth = intval($properties['textWidth'] + 5);
         $textHeight = intval($properties['textHeight'] + 5);
- 
+
         /* Create a canvas using the font properties.
                 Add some extra space on width and height */
         $im->newImage($textWidth, $textHeight, new ImagickPixel("transparent"));
@@ -159,22 +159,22 @@ class ImageMagic extends AbstractDriver
         $draw->setFillColor($color);
         $im->setImageFormat('png');
         $im->annotateImage($draw, 0, 0, 0, $text);
-        
+
         list($posX, $posY) = $this->_getCornerPosition($corner, $textWidth, $textHeight, $offsetX, $offsetY);
-        
+
         /* Composite the watermark on the image to the top left corner */
         $this->_image->compositeImage($im, Imagick::COMPOSITE_OVER, $posX, $posY);
 
         return $this;
     }
 
-    
+
 
     public function resizeCanvas($width, $height, $backgroundColor = '#FFFFFF')
     {
         $this->_checkLoaded();
-        
- 
+
+
         /* Create a canvas with the desired color */
         $canvas = new Imagick();
         $canvas->newImage($width, $height, $backgroundColor);
@@ -188,8 +188,8 @@ class ImageMagic extends AbstractDriver
         $posY = floor(($height - $geometry['height']) / 2);
 
         /* Composite on the canvas  */
-        $canvas->compositeImage($this->_image, imagick::COMPOSITE_OVER, $posX, $posY);        
-        
+        $canvas->compositeImage($this->_image, imagick::COMPOSITE_OVER, $posX, $posY);
+
         $this->_image = $canvas;
         $this->_width = $width;
         $this->_height = $height;
@@ -213,7 +213,7 @@ class ImageMagic extends AbstractDriver
         echo $this->_image;
         return $this;
     }
-    
+
     /**
      *
      * @param type $file
@@ -230,6 +230,8 @@ class ImageMagic extends AbstractDriver
 
         $this->_checkLoaded();
 
+        $this->autorotate($this->_image);
+
         if (!$format) {
             $format = $this->_format;
         }
@@ -245,13 +247,13 @@ class ImageMagic extends AbstractDriver
         }
         return $this;
     }
-    
+
     protected function _freeImage()
     {
         $this->_destroyImage($this->_image);
         $this->_image = null;
         if (isset($this->_originalImage['image'])) {
-            $this->_destroyImage($this->_originalImage['image']);            
+            $this->_destroyImage($this->_originalImage['image']);
         }
         $this->_originalImage = null;
     }
@@ -262,7 +264,7 @@ class ImageMagic extends AbstractDriver
             throw new \Exception('Image was not loaded.');
         }
     }
-    
+
     /**
      * Destroy image
      * @var Imagick $image
@@ -273,26 +275,26 @@ class ImageMagic extends AbstractDriver
             $image->destroy();
         }
     }
-    
+
     /**
-     * 
+     *
      * @var string $file path to image file
      */
     protected function _loadImage($file)
     {
         $result = array();
-        
+
         $result['image'] = new Imagick($file);
         $geometry = $result['image']->getImageGeometry();
         $result['width'] = $geometry['width'];
         $result['height'] = $geometry['height'];
         $result['format'] = $result['image']->getImageFormat();
-        return $result;        
+        return $result;
     }
-    
+
     /**
      *
-     * @param mixed $image 
+     * @param mixed $image
      */
     protected function _initImage($image = false)
     {
@@ -306,7 +308,42 @@ class ImageMagic extends AbstractDriver
 
         //Image
         $this->_destroyImage($this->_image);
-        $this->_image = $image['image'];            
+        $this->_image = $image['image'];
     }
 
+    protected function autorotate(Imagick $image)
+    {
+        switch ($image->getImageOrientation()) {
+        case Imagick::ORIENTATION_TOPLEFT:
+            break;
+        case Imagick::ORIENTATION_TOPRIGHT:
+            $image->flopImage();
+            break;
+        case Imagick::ORIENTATION_BOTTOMRIGHT:
+            $image->rotateImage("#000", 180);
+            break;
+        case Imagick::ORIENTATION_BOTTOMLEFT:
+            $image->flopImage();
+            $image->rotateImage("#000", 180);
+            break;
+        case Imagick::ORIENTATION_LEFTTOP:
+            $image->flopImage();
+            $image->rotateImage("#000", -90);
+            break;
+        case Imagick::ORIENTATION_RIGHTTOP:
+            $image->rotateImage("#000", 90);
+            break;
+        case Imagick::ORIENTATION_RIGHTBOTTOM:
+            $image->flopImage();
+            $image->rotateImage("#000", 90);
+            break;
+        case Imagick::ORIENTATION_LEFTBOTTOM:
+            $image->rotateImage("#000", -90);
+            break;
+        default: // Invalid orientation
+            break;
+        }
+        $image->setImageOrientation(Imagick::ORIENTATION_TOPLEFT);
+        return $image;
+    }
 }
