@@ -1,10 +1,10 @@
 {
-	"name": "piojarz/yii2-image-processor",
-	"description": "yii2 image processor with metadata based autorotate",
+	"name": "maxlapko/yii2-image-processor",
+	"description": "yii2 image processor",
 	"version": "0.0.1",
 	"type": "yii2-extension",
 	"keywords": ["yii", "yii2", "image", "component", "behavior"],
-	"homepage": "https://github.com/piojarz/yii2-image-processor",
+	"homepage": "https://github.com/maxlapko/yii2-image-processor",
 	"time": "2014-04-29",
 	"license": "MIT",
 	"authors": [
@@ -13,14 +13,11 @@
 			"email": "maxlapko@gmail.com",
 			"homepage": "https://github.com/maxlapko",
 			"role": "Team Lead Developer"
-		},
-		{
-			"name": "Piotr Jarząbek"
 		}
 	],
 	"support": {
-		"issues": "https://github.com/piojarz/yii2-image-processor/issues",
-		"source": "https://github.com/piojarz/yii2-image-processor"
+		"issues": "https://github.com/maxlapko/yii2-image-processor/issues",
+		"source": "https://github.com/maxlapko/yii2-image-processor"
 	},
 	"require": {
 		"php": ">=5.4.0",
@@ -28,7 +25,7 @@
 	},
 	"autoload": {
 		"psr-4": {
-			"piojarz\\components\\": ""
+			"maxlapko\\components\\": ""
 		}
 	},
 	"minimum-stability": "dev"
